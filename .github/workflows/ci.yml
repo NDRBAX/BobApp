@@ -50,15 +50,11 @@ jobs:
           name: backend-jacoco-report
           path: back/target/site/jacoco/
 
-      # - name: Analyse SonarCloud
-      #   run: ./mvnw sonar:sonar -Dsonar.projectKey=ndrbax_BobApp_Back -Dsonar.organization=ndrbax -Dsonar.host.url=https://sonarcloud.io
-      #   working-directory: ./back
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ndrbax_BobApp_Back
+        working-directory: ./back
 
   frontend:
     runs-on: ubuntu-latest
@@ -120,21 +116,4 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      # - name: Install SonarScanner CLI
-      #   run: npm install -g sonarqube-scanner
-
-      # - name: Analyse SonarCloud Frontend
-      #   run: |
-      #     sonar-scanner \
-      #       -Dsonar.projectKey=NDRBAX_BobApp_Front \
-      #       -Dsonar.organization=ndrbax \
-      #       -Dsonar.sources=src \
-      #       -Dsonar.tests=src \
-      #       -Dsonar.test.inclusions=**/*.spec.ts \
-      #       -Dsonar.host.url=https://sonarcloud.io
-      #   working-directory: ./front
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
- 
+        working-directory: ./front
