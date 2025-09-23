@@ -107,7 +107,7 @@ jobs:
       - name: Analyse SonarCloud Frontend
         run: |
           sonar-scanner \
-            -Dsonar.projectKey=bobapp-front \
+            -Dsonar.projectKey=NDRBAX_BobApp \
             -Dsonar.organization=ndrbax \
             -Dsonar.sources=src \
             -Dsonar.language=ts \
