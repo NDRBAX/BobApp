@@ -54,7 +54,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ndrbax_BobApp_Back
-        working-directory: ./back
+        working-directory: back
 
   frontend:
     runs-on: ubuntu-latest
@@ -114,6 +114,14 @@ jobs:
         
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
+        with:
+          projectBaseDir: ./front
+          args: >
+            -Dsonar.projectKey=ndrbax_BobApp_Front
+            -Dsonar.organization=ndrbax
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=**/*.spec.ts
+            -Dsonar.host.url=https://sonarcloud.io
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        working-directory: ./front
