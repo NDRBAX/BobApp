@@ -110,7 +110,8 @@ jobs:
             -Dsonar.projectKey=NDRBAX_BobApp \
             -Dsonar.organization=ndrbax \
             -Dsonar.sources=src \
-            -Dsonar.language=ts \
+            -Dsonar.tests=src \
+            -Dsonar.test.inclusions=**/*.spec.ts \
             -Dsonar.host.url=https://sonarcloud.io
         working-directory: ./front
         env:
