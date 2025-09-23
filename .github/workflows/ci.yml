@@ -42,7 +42,7 @@ jobs:
           path: back/target/site/jacoco/
 
       - name: Analyse SonarCloud
-        run: ./mvnw sonar:sonar -Dsonar.projectKey=NDRBAX_BobApp -Dsonar.organization=ndrbaX -Dsonar.host.url=https://sonarcloud.io
+        run: ./mvnw sonar:sonar -Dsonar.projectKey=NDRBAX_BobApp -Dsonar.organization=ndrbax -Dsonar.host.url=https://sonarcloud.io
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
