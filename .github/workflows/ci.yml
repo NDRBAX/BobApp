@@ -101,24 +101,19 @@ jobs:
           name: frontend-coverage
           path: front/coverage/bobapp/
 
-  # sonarcloud:
-  #   name: SonarCloud Quality Gate
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
+      - name: Install SonarScanner CLI
+        run: npm install -g sonarqube-scanner
 
-  #     - name: SonarCloud Scan Backend
-  #       uses: SonarSource/sonarcloud-github-action@v2
-  #       with:
-  #         projectBaseDir: back
-  #       env:
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Analyse SonarCloud Frontend
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=bobapp-front \
+            -Dsonar.organization=ndrbax \
+            -Dsonar.sources=src \
+            -Dsonar.language=ts \
+            -Dsonar.host.url=https://sonarcloud.io
+        working-directory: ./front
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  #     - name: SonarCloud Scan Frontend
-  #       uses: SonarSource/sonarcloud-github-action@v2
-  #       with:
-  #         projectBaseDir: front
-  #       env:
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+ 
