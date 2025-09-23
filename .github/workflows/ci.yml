@@ -41,6 +41,11 @@ jobs:
           name: backend-jacoco-report
           path: back/target/site/jacoco/
 
+      - name: Analyse SonarCloud
+        run: ./mvnw sonar:sonar -Dsonar.projectKey=NDRBAX_BobApp -Dsonar.organization=ndrbaX -Dsonar.host.url=https://sonarcloud.io
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   frontend:
     runs-on: ubuntu-latest
     steps:
@@ -95,24 +100,24 @@ jobs:
           name: frontend-coverage
           path: front/coverage/bobapp/
 
-  sonarcloud:
-    name: SonarCloud Quality Gate
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+  # sonarcloud:
+  #   name: SonarCloud Quality Gate
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
 
-      - name: SonarCloud Scan Backend
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: back
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #     - name: SonarCloud Scan Backend
+  #       uses: SonarSource/sonarcloud-github-action@v2
+  #       with:
+  #         projectBaseDir: back
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      - name: SonarCloud Scan Frontend
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: front
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #     - name: SonarCloud Scan Frontend
+  #       uses: SonarSource/sonarcloud-github-action@v2
+  #       with:
+  #         projectBaseDir: front
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
